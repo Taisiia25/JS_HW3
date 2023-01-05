@@ -4,43 +4,29 @@ console.log('Exercise 1')
 //Создать функцию - конструктор, 
 //которая будет иметь внутри все свойства обьекта emplyee из массива emplyeeArr;
 
-//const employeeObj = new Emploee(employee);
-  const thisValeriy = {
-    id: 0,
-    name: 'Valeriy',
-    surname: 'Zhmishenko',
-    salary: 1000, 
-    workExperience: 10, 
-    isPrivileges: true, 
-    gender: 'male',
-  }
 
-// etc.
-
- function Employee (id, name, surname, salary, workExperience, isPrivileges, gender) {
-    this.id = id;
-    this.name = name;
-    this.surname = surname;
-    this.salary = salary;
-    this.workExperience = workExperience;
-    this.isPrivileges = isPrivileges;
-    this.gender = gender;
+const Employee = function(employee) {
+    this.id = employee.id;
+    this.name = employee.name;
+    this.surname = employee.surname;
+    this.salary = employee.salary;
+    this.workExperience = employee.workExperience;
+    this.isPrivileges = employee.isPrivileges;
+    this.gender = employee.gender;
 }
 
-const employeeObj1 = new Employee (0, 'Valeriy', 'Zhmishenko', 1000, 10, true, 'male');
-console.log(employeeObj1);
+const employeeObj = new Employee(emplyeeArr[0])
+console.log(employeeObj);
 
 // Exercise 2
 console.log('Exercise 2')
 //Добавить функции - конструктору метод (помним про prototype): 
 // getFullName который вернет полное имя начиная с фамилии в виде строки
 
-// employeeObj.getFullName() // 'Zhmishenko Valeriy';
-
 Employee.prototype.getFullName = function() {
     return `${this.surname} ${this.name}`
 }
-console.log(employeeObj1.getFullName())
+console.log(employeeObj.getFullName())
 
 
 // Exercise 3
@@ -56,28 +42,11 @@ console.log('Exercise 3')
 // const emplyeeConstructArr = createEmployesFromArr(emplyeeArr) /// [{id: 0, name: 'Valeriy', surname: 'Zhmishenko', salary: 1000,  workExperience: 10,  isPrivileges: true, gender:'male' }]
 
 
-
-// Створимо нову функцію-конструктор по Ex. 1, але на основі масиву emplyeeArr.
-const Employee1 = function(employee) {
-    this.id = employee.id;
-    this.name = employee.name;
-    this.surname = employee.surname;
-    this.salary = employee.salary;
-    this.workExperience = employee.workExperience;
-    this.isPrivileges = employee.isPrivileges;
-    this.gender = employee.gender;
-}
-
-const employeeObj = new Employee1(emplyeeArr[0])
-console.log(employeeObj);
-
-//  Створимо новий масив emplyeeConstructArr відповідно Ex.3
-
 let createEmployesFromArr = (arr) => {
     const emploeeList  = [];
 
     for (const employee of arr) {
-        const newEmployee = new Employee1(employee);
+        const newEmployee = new Employee(employee);
         emploeeList.push(newEmployee);
     }
 
@@ -93,10 +62,7 @@ console.log('Exercise 4')
 
 // Создать функцию которая вернет массив со всеми полными именами каждого employee, 
 // содержащегося в emplyeeConstructArr;
-Employee1.prototype.getFullName = function() {
-    return `${this.surname} ${this.name}`
-}
-console.log(employeeObj.getFullName())
+
 
 const getFullNamesFromArr = (arr) => {
     let fullNames = [];
@@ -129,3 +95,23 @@ const getMiddleSalary = (arr) => {
 
 const result = getMiddleSalary(emplyeeConstructArr);
 console.log(Math.round(result));
+
+// Exercise 6
+console.log('Exercise 6')
+
+// Создать функцию которая выберет наугад работника из массива emplyeeConstructArr. 
+// Вы должны учитывать в функции длинну массива, так как если работников 7, а рандомное число будет равно больше 7, 
+// то результат будет undefined. Вы можете использовать обьявленную функцию в сомой же себе. 
+
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min;
+}
+
+const getRandomEmployee = (arr) => {
+    return arr[getRandomInt(0, arr.length)];
+}
+
+console.log(getRandomEmployee(emplyeeConstructArr));
+  
